@@ -3,12 +3,12 @@ package chy.board.like.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import chy.board.common.snowflake.Snowflake;
 import chy.board.like.entity.ArticleLike;
 import chy.board.like.entity.ArticleLikeCount;
 import chy.board.like.repository.ArticleLikeCountRepository;
 import chy.board.like.repository.ArticleLikeRepository;
 import chy.board.like.service.response.ArticleLikeResponse;
-import kuke.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 
 @Service

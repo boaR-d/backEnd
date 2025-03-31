@@ -13,7 +13,7 @@ import chy.board.article.service.request.ArticleCreateRequest;
 import chy.board.article.service.request.ArticleUpdateRequest;
 import chy.board.article.service.response.ArticlePageResponse;
 import chy.board.article.service.response.ArticleResponse;
-import kuke.board.common.snowflake.Snowflake;
+import chy.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 
 @Service

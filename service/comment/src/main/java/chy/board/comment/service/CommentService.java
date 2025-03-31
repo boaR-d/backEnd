@@ -13,7 +13,7 @@ import chy.board.comment.repository.CommentRepository;
 import chy.board.comment.service.request.CommentCreateRequest;
 import chy.board.comment.service.response.CommentPageResponse;
 import chy.board.comment.service.response.CommentResponse;
-import kuke.board.common.snowflake.Snowflake;
+import chy.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 
 @Service
