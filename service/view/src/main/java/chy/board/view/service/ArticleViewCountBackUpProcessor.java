@@ -3,6 +3,9 @@ package chy.board.view.service;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import chy.board.common.event.EventType;
+import chy.board.common.event.payload.ArticleViewedEventPayload;
+import chy.board.common.outboxmessagerelay.OutboxEventPublisher;
 import chy.board.view.entity.ArticleViewCount;
 import chy.board.view.repository.ArticleViewCountBackUpRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class ArticleViewCountBackUpProcessor {
+	private final OutboxEventPublisher outboxEventPublisher;
 	private final ArticleViewCountBackUpRepository articleViewCountBackUpRepository;
 
 	@Transactional
@@ -23,6 +27,13 @@ public class ArticleViewCountBackUpProcessor {
 				);
 		}
 
-		// TODO ViewCount 배치 저장 이벤트 발행 (인기글 계산에 사용)
+		outboxEventPublisher.publish(
+			EventType.ARTICLE_VIEWED,
+			ArticleViewedEventPayload.builder()
+				.articleId(articleId)
+				.articleViewCount(viewCount)
+				.build(),
+			articleId
+		);
 	}
 }

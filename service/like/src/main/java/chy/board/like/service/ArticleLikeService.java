@@ -3,6 +3,10 @@ package chy.board.like.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import chy.board.common.event.EventType;
+import chy.board.common.event.payload.ArticleLikedEventPayload;
+import chy.board.common.event.payload.ArticleUnlikedEventPayload;
+import chy.board.common.outboxmessagerelay.OutboxEventPublisher;
 import chy.board.common.snowflake.Snowflake;
 import chy.board.like.entity.ArticleLike;
 import chy.board.like.entity.ArticleLikeCount;
@@ -15,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArticleLikeService {
 	private final Snowflake snowflake = new Snowflake();
+	private final OutboxEventPublisher outboxEventPublisher;
 	private final ArticleLikeRepository articleLikeRepository;
 	private final ArticleLikeCountRepository articleLikeCountRepository;
 
@@ -41,7 +46,17 @@ public class ArticleLikeService {
 			);
 		}
 
-		// TODO 좋아요 이벤트 발생 시키기
+		outboxEventPublisher.publish(
+			EventType.ARTICLE_LIKED,
+			ArticleLikedEventPayload.builder()
+				.articleLikeId(articleLike.getArticleLikeId())
+				.articleId(articleLike.getArticleId())
+				.userId(articleLike.getUserId())
+				.createdAt(articleLike.getCreatedAt())
+				.articleLikeCount(count(articleLike.getArticleId()))
+				.build(),
+			articleLike.getArticleId()
+		);
 	}
 
 	@Transactional
@@ -50,7 +65,17 @@ public class ArticleLikeService {
 			.ifPresent(articleLike -> {
 					articleLikeRepository.delete(articleLike);
 					articleLikeCountRepository.decrease(articleId);
-					// TODO 좋아요 취소 이벤트 발행하기
+					outboxEventPublisher.publish(
+						EventType.ARTICLE_UNLIKED,
+						ArticleUnlikedEventPayload.builder()
+							.articleLikeId(articleLike.getArticleLikeId())
+							.articleId(articleLike.getArticleId())
+							.userId(articleLike.getUserId())
+							.createdAt(articleLike.getCreatedAt())
+							.articleLikeCount(count(articleLike.getArticleId()))
+							.build(),
+						articleLike.getArticleId()
+					);
 				}
 			);
 	}
