@@ -15,8 +15,8 @@ public class HotArticleScoreCalculator {
 	private final ArticleViewCountRepository articleViewCountRepository;
 
 	private static final long ARTICLE_LIKE_COUNT_WEIGHT = 3;
-	private static final long ARTICLE_COMMENT_COUNT_WEIGHT = 3;
-	private static final long ARTICLE_VIEW_COUNT_WEIGHT = 3;
+	private static final long ARTICLE_COMMENT_COUNT_WEIGHT = 2;
+	private static final long ARTICLE_VIEW_COUNT_WEIGHT = 1;
 
 	public long calculate(Long articleId) {
 		Long articleLikeCount = articleLikeCountRepository.read(articleId);
