@@ -37,7 +37,7 @@ public class ArticleController {
 		return articleService.readAll(boardId, page, pageSize);
 	}
 
-	@GetMapping("/v1/article/infinite-scroll")
+	@GetMapping("/v1/articles/infinite-scroll")
 	public List<ArticleResponse> readAllInfiniteScroll(
 		@RequestParam Long boardId,
 		@RequestParam Long pageSize,

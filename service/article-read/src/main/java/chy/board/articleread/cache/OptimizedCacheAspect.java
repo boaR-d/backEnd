@@ -18,7 +18,7 @@ public class OptimizedCacheAspect {
 	@Around("@annotation(OptimizedCacheable)")
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 		OptimizedCacheable cacheable = findAnnotation(joinPoint);
-		return optimizedCacheManager.proceed(
+		return optimizedCacheManager.process(
 			cacheable.type(),
 			cacheable.ttlSeconds(),
 			joinPoint.getArgs(),

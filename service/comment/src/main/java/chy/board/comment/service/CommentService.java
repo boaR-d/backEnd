@@ -36,8 +36,8 @@ public class CommentService {
 			Comment.create(
 				snowflake.nextId(),
 				request.getContent(),
-				parent == null ? null : parent.getCommentId(),
 				request.getArticleId(),
+				parent == null ? null : parent.getCommentId(), // TODO comment페이징 쿼리는 (부모id, 내id)로 페이징하는데 부모가 null이면 어떻게 페이징할지 생각해보기
 				request.getWriterId()
 			)
 		);
@@ -127,7 +127,7 @@ public class CommentService {
 	}
 
 	private boolean hasChildren(Comment comment) {
-		return commentRepository.countBy(comment.getArticleId(), comment.getCommentId(), 2L) == 2L;
+		return commentRepository.countBy(comment.getArticleId(), comment.getCommentId(), 1L) == 1L;
 	}
 
 	private Comment findParent(CommentCreateRequest request) {

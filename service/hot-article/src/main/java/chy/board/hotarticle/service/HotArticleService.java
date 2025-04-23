@@ -25,14 +25,15 @@ public class HotArticleService {
 	private final HotArticleListRepository hotArticleListRepository;
 
 	public void handleEvent(Event<EventPayload> event) {
-		EventHandler eventHandler = findEventHandler(event);
-		if (eventHandlers == null) {
+		EventHandler<EventPayload> eventHandler = findEventHandler(event);
+		if (eventHandler == null) {
 			return;
 		}
 		if (isArticleCreatedOrDeleted(event)) {
 			eventHandler.handle(event);
+		} else {
+			hotArticleScoreUpdater.update(event, eventHandler);
 		}
-		hotArticleScoreUpdater.update(event, eventHandler);
 	}
 
 	public List<HotArticleResponse> readAll(String dateStr) {

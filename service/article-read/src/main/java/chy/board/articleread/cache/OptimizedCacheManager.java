@@ -18,7 +18,7 @@ public class OptimizedCacheManager {
 
 	private static final String DELIMITER = "::";
 
-	public Object proceed(String type, long ttlSeconds, Object[] args, Class<?> returnType, OptimizedCacheOriginDataSupplier<?> originDataSupplier) throws Throwable {
+	public Object process(String type, long ttlSeconds, Object[] args, Class<?> returnType, OptimizedCacheOriginDataSupplier<?> originDataSupplier) throws Throwable {
 		String key = generateKey(type, args);
 
 		String cachedData = redisTemplate.opsForValue().get(key);

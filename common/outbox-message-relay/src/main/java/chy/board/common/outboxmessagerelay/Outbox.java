@@ -25,7 +25,7 @@ public class Outbox {
 	private EventType eventType;
 	private String payload;
 	private Long shardKey;
-	private LocalDateTime createAt;
+	private LocalDateTime createdAt;
 
 	public static Outbox create(Long outboxId, EventType eventType, String payload, Long shardKey) {
 		Outbox outbox = new Outbox();
@@ -33,7 +33,7 @@ public class Outbox {
 		outbox.eventType = eventType;
 		outbox.payload = payload;
 		outbox.shardKey = shardKey;
-		outbox.createAt = LocalDateTime.now();
+		outbox.createdAt = LocalDateTime.now();
 		return outbox;
 	}
 }
