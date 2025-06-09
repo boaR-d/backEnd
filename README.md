@@ -6,7 +6,7 @@
 <div>
 
 ### 🔗 백엔드 리포지토리  
-⚙️ <a href="https://github.com/100-hours-a-week/5-chunsik-4Q-be">BE Repo</a>
+⚙️ <a href="https://github.com/boaR-d/backEnd">BE Repo</a>
 </div>
 <br>
 
