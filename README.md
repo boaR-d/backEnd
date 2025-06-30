@@ -69,7 +69,7 @@
 <div align="center">
   <br />
 <br />
-  <img src="https://github.com/user-attachments/assets/4849dbc7-d6c5-4700-8567-54c802935823" width="600" alt="Architecture Image"/>
+  <img src="https://github.com/user-attachments/assets/d594f1cd-8c78-447c-bf28-eb794ac74760" width="600" alt="Architecture Image"/>
 </div>
 
 
